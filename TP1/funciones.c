@@ -72,7 +72,9 @@ float resta( float valorUno , float valorDos ) {
 }
 
 float division( float valorUno , float valorDos ) {
-    return valorUno / valorDos;
+    if( valorDos != 0 ) {
+        return valorUno / valorDos;
+    }
 }
 
 float multiplicacion( float valorUno , float valorDos ) {

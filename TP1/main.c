@@ -29,6 +29,14 @@ int main()
                 multiplicacion = multiplicacion( operandoUno , operandoDos );
                 division = division( operandoUno , operandoDos );
                 break;
+            case 4:
+                printf( "El resultado de A+B es: %.2f" , suma );
+                printf( "El resultado de A-B es: %.2f" , resta );
+                printf( "El resultado de A/B es: %.2f" , division );
+                printf( "El resultado de A*B es: %.2f" , multiplicacion );
+                break;
+            case 5:
+                break;
         }
     } while( menu != SALIR );
 
