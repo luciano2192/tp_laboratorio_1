@@ -20,7 +20,7 @@ float getDatoGenericoFloat( char mensaje[] , char error[] , float min , float ma
 *\return El resultado de la suma de los valores.
 *
 */
-float suma( float valorUno , float valorDos );
+float sumar( float valorUno , float valorDos );
 
 /**
 *\brief Recibe dos numeros y realiza la resta de los mismos.
@@ -28,7 +28,7 @@ float suma( float valorUno , float valorDos );
 *\return El resultado de la resta de los valores.
 *
 */
-float resta( float valorUno , float valorDos );
+float restar( float valorUno , float valorDos );
 
 /**
 *\brief Recibe dos numeros y realiza la division de los mismos.
@@ -36,7 +36,7 @@ float resta( float valorUno , float valorDos );
 *\return El resultado de la division de los valores.
 *
 */
-float division( float valorUno , float valorDos );
+float dividir( float valorUno , float valorDos );
 
 /**
 *\brief Recibe dos numeros y realiza la multiplicacion de los mismos.
@@ -44,7 +44,7 @@ float division( float valorUno , float valorDos );
 *\return El resultado de la multiplicacion de los valores.
 *
 */
-float multiplicacion( float valorUno , float valorDos );
+float multiplicar( float valorUno , float valorDos );
 
 /**
 *\brief Recibe tres numeros
@@ -54,8 +54,9 @@ float multiplicacion( float valorUno , float valorDos );
 *\return 1 si es valido - 0 si NO es valido.
 *
 */
-int elDatoIngresadoEsValido( float valor , float min , float max );
+float factorial( float valor );
+float elDatoIngresadoEsValido1( float valor );
 
-int elDatoIngresadoEsValido( float valor );
+int elDatoIngresadoEsValido2( float valor , float min );
 
-int elDatoIngresadoEsValido( float valor , float min );
+int elDatoIngresadoEsValido3( float valor , float min , float max );

@@ -1,15 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "./funciones.h"
+
 #define TRUE 1
 #define FALSE 0
 
 int menuCalculadora( float operandoUno , float operandoDos ) {
     int menu;
-    printf("\n1) Ingresar el primero operando. A=%f" , operandoUno);
-    printf("\n2) Ingresar el segundo operando. B=%f" , operandoDos);
+    printf("\n");
+    printf("\n1) Ingresar el primero operando. A=%.2f" , operandoUno);
+    printf("\n2) Ingresar el segundo operando. B=%.2f" , operandoDos);
     printf("\n3) Calcular todas las operaciones.");
     printf("\n4) Informar los resultados.");
     printf("\n5) Salir.\n");
     printf("\nSeleccionar una opcion <1-5>: ");
     scanf( "%d" , &menu );
+    printf("\n");
+    return menu;
 }
 
 float getDatoGenericoFloat( char mensaje[] , char error[] , float min , float max , int tipoValidacion ) {
@@ -19,15 +26,15 @@ float getDatoGenericoFloat( char mensaje[] , char error[] , float min , float ma
     printf( "%s\n" , mensaje );
     scanf( "%f" , &valor );
 
-    switch( validacion ) {
+    switch( tipoValidacion ) {
         case 1:
-            datoValido = elDatoIngresadoEsValido( float valor , float min , float max );
+            datoValido = elDatoIngresadoEsValido1( valor );
             break;
         case 2:
-            datoValido = elDatoIngresadoEsValido( float valor , float min );
+            datoValido = elDatoIngresadoEsValido2( valor , min );
             break;
         case 3:
-            datoValido = elDatoIngresadoEsValido( float valor );
+            datoValido = elDatoIngresadoEsValido3( valor , min , max );
             break;
     }
 
@@ -39,15 +46,11 @@ float getDatoGenericoFloat( char mensaje[] , char error[] , float min , float ma
     return valor;
 }
 
-int elDatoIngresadoEsValido( float valor , float min , float max ) {
-    int boolean = TRUE;
-    if( valor < min || valor > max ) {
-        boolean = FALSE;
-    }
-    return boolean;
+float elDatoIngresadoEsValido1( float valor ) {
+    return valor;
 }
 
-int elDatoIngresadoEsValido( float valor , float min ) {
+int elDatoIngresadoEsValido2( float valor , float min ) {
     int boolean = TRUE;
     if( valor < min ) {
         boolean = FALSE;
@@ -55,28 +58,43 @@ int elDatoIngresadoEsValido( float valor , float min ) {
     return boolean;
 }
 
-int elDatoIngresadoEsValido( float valor ) {
+int elDatoIngresadoEsValido3( float valor , float min , float max ) {
     int boolean = TRUE;
-    if( valor == NULL ) {
+    if( valor < min || valor > max ) {
         boolean = FALSE;
     }
     return boolean;
 }
 
-float suma( float valorUno , float valorDos ) {
+float sumar( float valorUno , float valorDos ) {
     return valorUno + valorDos;
 }
 
-float resta( float valorUno , float valorDos ) {
+float restar( float valorUno , float valorDos ) {
     return valorUno - valorDos;
 }
 
-float division( float valorUno , float valorDos ) {
+float dividir( float valorUno , float valorDos ) {
+    float resultado;
     if( valorDos != 0 ) {
-        return valorUno / valorDos;
+        resultado = valorUno / valorDos;
+    } else {
+        printf("ERROR ! no se puede dividir por cero.");
+        resultado = 0;
     }
+    return resultado;
 }
 
-float multiplicacion( float valorUno , float valorDos ) {
+float multiplicar( float valorUno , float valorDos ) {
     return valorUno * valorDos;
+}
+
+float factorial( float valor ) {
+    int factorial = 1;
+
+    for( int i = valor; i > 0; i--) {
+        factorial *= i;
+    }
+
+    return (factorial);
 }
