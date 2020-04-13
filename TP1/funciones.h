@@ -47,16 +47,33 @@ float dividir( float valorUno , float valorDos );
 float multiplicar( float valorUno , float valorDos );
 
 /**
-*\brief Recibe tres numeros
-*\brief el primer parametro es el dato ingresado por el usuario
-*\brief el segundo y tercer parametro son de validacion respecto al primero
+*\brief Recibe un numero y realiza el factorial del mismo.
 *\param mensaje no devuelve un mensaje.
-*\return 1 si es valido - 0 si NO es valido.
+*\return El resultado del factorial del numero.
 *
 */
 float factorial( float valor );
+
+/**
+*\brief Recibe un numero.
+*\param mensaje no devuelve un mensaje.
+*\return retorna el valor ingresado.
+*
+*/
 float elDatoIngresadoEsValido1( float valor );
 
+/**
+*\brief Recibe el valor ingresado por el usuario y un limite minimo.
+*\param mensaje no devuelve un mensaje.
+*\return retorna 1 si el valor es correcto - 0 si no es correcto.
+*
+*/
 int elDatoIngresadoEsValido2( float valor , float min );
 
+/**
+*\brief Recibe el valor ingresado por el usuario, un limite minimo y un limite maximo.
+*\param mensaje no devuelve un mensaje.
+*\return retorna 1 si el valor es correcto - 0 si no es correcto.
+*
+*/
 int elDatoIngresadoEsValido3( float valor , float min , float max );

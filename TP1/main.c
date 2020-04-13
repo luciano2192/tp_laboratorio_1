@@ -8,12 +8,12 @@
 
 int main()
 {
+    int menu;
+    int flagDatosCalculados = FALSE;
+
     float operandoUno = 0;
     float operandoDos = 0;
     float suma , resta , multiplicacion , division , factorialOperandoUno , factorialOperandoDos;
-
-    int menu;
-    int flagDatosCalculados = FALSE;
 
     do {
         menu = menuCalculadora( operandoUno , operandoDos );
