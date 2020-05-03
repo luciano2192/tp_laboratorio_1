@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1588545169 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"./ArrayEmployees.h"
+	"./utn_funciones.h"
+
+1588544519 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.h
+
+1588538827 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.c
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"./ArrayEmployees.h"
+	"./utn_funciones.h"
+
+1588535064 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.h
+
+1588534676 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"./utn_funciones.h"
+
