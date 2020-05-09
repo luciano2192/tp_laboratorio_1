@@ -4,7 +4,7 @@
 *\return El valor ingresado por el usuario.
 *
 */
-int menuCalculadora( float operandoUno , float operandoDos );
+int menu();
 
 /**
 *\brief Recibe dos cadenas de texto y dos numeros.

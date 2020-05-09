@@ -79,7 +79,7 @@ void getDatoGenericoString( char* dato , char mensaje[] , char error[] , int len
     int salida = -1;
     int esString;
     do {
-        printf( "%s\n" , mensaje );
+        printf( "\n%s" , mensaje );
         miFgets( aux , length );
         esString = sonLetras( aux );
         if( esString == 0 && strlen(aux) <= length ) {
@@ -97,7 +97,7 @@ void getDatoGenericoInt( int* dato , char mensaje[] , char error[] , float min ,
     int salida = -1;
     int datoValido;
     do {
-        printf( "%s\n" , mensaje );
+        printf( "\n%s" , mensaje );
         scanf( "%s" , aux );
         valor = toInt( aux );
         if( valor != -1 ) {
@@ -130,7 +130,7 @@ void getDatoGenericoFloat( float* dato , char mensaje[] , char error[] , float m
     int salida = -1;
     int datoValido;
     do {
-        printf( "%s\n" , mensaje );
+        printf( "\n%s" , mensaje );
         scanf( "%s" , aux );
         valor = toFloat( aux );
         if( valor != -1 ) {
