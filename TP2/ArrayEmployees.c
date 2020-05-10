@@ -7,6 +7,26 @@
 #define TRUE 1
 #define FALSE 0
 
+void harcodeoListadoEmpleados( eEmployee listadoEmpleados[] , int len ) {
+    int id[2] = { 1 , 2 };
+    char name[2][30] = { "nombreUNO" , "nombreDOS" };
+    char lastName[2][30] = { "apellidoUNO" , "apellidoDOS" };
+    float salary[2] = { 100.5 , 200.5 };
+    int sector[2] = { 1 , 2 };
+    int isEmpty[2] = { FALSE , FALSE };
+
+    for( int i = 0 ; i < len ; i++ ) {
+        listadoEmpleados[i].id = id[i];
+        formatearString( listadoEmpleados[i].name );
+        formatearString( listadoEmpleados[i].lastName );
+        strcpy( listadoEmpleados[i].name , name[i] );
+        strcpy( listadoEmpleados[i].lastName , lastName[i] );
+        listadoEmpleados[i].salary = salary[i];
+        listadoEmpleados[i].sector = sector[i];
+        listadoEmpleados[i].isEmpty = isEmpty[i];
+    };
+}
+
 /** \brief To indicate that all position in the array are empty,
 * this function put the flag (isEmpty) in TRUE in all
 * position of the array
@@ -26,9 +46,7 @@ int initEmployees( eEmployee* list , int len ) {
     return salida;
 };
 
-/** \brief To indicate that all position in the array are empty,
-* this function put the flag (isEmpty) in TRUE in all
-* position of the array
+/** \brief Si el listado esta hardcodeado inicializa los espacios libres
 * \param list Employee* Pointer to array of employees
 * \param len int Array length
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
@@ -109,6 +127,18 @@ int findFreeSpace( eEmployee* list , int len ) {
         }
     }
     return salida;
+}
+
+int cantidadLugaresDisponibles( eEmployee* list , int len ) {
+    int lugaresDisponibles = 0;
+    if( list != NULL && len > 0 ) {
+        for( int i = 0 ; i < len ; i++ ) {
+            if( list[i].isEmpty == TRUE ) {
+                lugaresDisponibles++;
+            }
+        }
+    }
+    return lugaresDisponibles;
 }
 
 /** \brief add in a existing list of employees the values received as parameters
@@ -196,10 +226,12 @@ int sortEmployees( eEmployee* list , int len , int order ) {
                     list[i] = list[j];
                     list[j] = aux;
                 } else {
-                    if( strcmp(list[i].lastName,list[j].lastName) < 0 ) {
-                        aux = list[i];
-                        list[i] = list[j];
-                        list[j] = aux;
+                    if( list[i].sector == list[j].sector ){
+                        if( strcmp(list[i].lastName,list[j].lastName) < 0 ) {
+                            aux = list[i];
+                            list[i] = list[j];
+                            list[j] = aux;
+                        }
                     }
                 }
             } else {
@@ -208,10 +240,12 @@ int sortEmployees( eEmployee* list , int len , int order ) {
                     list[i] = list[j];
                     list[j] = aux;
                 } else {
-                    if( strcmp(list[i].lastName,list[j].lastName) > 0 ) {
-                        aux = list[i];
-                        list[i] = list[j];
-                        list[j] = aux;
+                    if( list[i].sector == list[j].sector ) {
+                        if( strcmp(list[i].lastName,list[j].lastName) > 0 ) {
+                            aux = list[i];
+                            list[i] = list[j];
+                            list[j] = aux;
+                        }
                     }
                 }
             }
@@ -262,13 +296,15 @@ int menuInformar() {
 float totalSalarios( eEmployee listaEmpleados[] , int len ) {
     float total = 0;
     for(int i = 0 ; i < len ; i++ ) {
-        total += listaEmpleados[i].salary;
+        if( listaEmpleados[i].isEmpty == FALSE ) {
+            total = total + listaEmpleados[i].salary;
+        }
     }
     return total;
 }
 
 float promedioSalarios( eEmployee listaEmpleados[] , int len ) {
-    float promedio;
+    float promedio = 0;
     int cantidadEmpleados = 0;
     float totalSalary = totalSalarios( listaEmpleados , len );
     for(int i = 0 ; i < len ; i++ ) {
@@ -305,7 +341,7 @@ void menuAdministracionEmpleados( eEmployee listaEmpleados[] , int len ) {
     float totalSalary;
     float promedioSalary;
     do{
-        menuEmpleados = menu();
+        menuEmpleados = menu( cantidadLugaresDisponibles(listaEmpleados,len) );
         empleadoCargado = seCargoEmpleado( listaEmpleados , len );
         switch( menuEmpleados ) {
             case 1:
@@ -322,6 +358,7 @@ void menuAdministracionEmpleados( eEmployee listaEmpleados[] , int len ) {
                 case 2:
                     printEmployees( listaEmpleados , len );
                     getDatoGenericoInt( &auxID , "\nIngrese ID del empleado: " , "ERROR ! ingrese nuevamente el ID" , 0 , len , 3 );
+                    printf( "\nQue desea modificar ?\n" );
                     menuMod = menuModificar();
                     indexEmpleado = findEmployeeById( listaEmpleados , len , auxID );
                     switch(menuMod) {

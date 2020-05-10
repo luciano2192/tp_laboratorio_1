@@ -8,10 +8,10 @@
 #define FALSE 0
 #define AUXLENGTH 100
 
-int menu() {
+int menu( int espaciosLibres ) {
     int menu;
     printf( "\n" );
-    printf( "\n1) Alta" );
+    printf( "\n1) Alta - Lugares Disponibles: %d" , espaciosLibres );
     printf( "\n2) Modificar" );
     printf( "\n3) Baja" );
     printf( "\n4) Informar" );

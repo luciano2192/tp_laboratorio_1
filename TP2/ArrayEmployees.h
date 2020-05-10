@@ -7,6 +7,7 @@ typedef struct {
     int isEmpty;
 } eEmployee;
 
+void harcodeoListadoEmpleados( eEmployee listadoEmpleados[] , int len );
 
 int initEmployees( eEmployee* list , int len );
 

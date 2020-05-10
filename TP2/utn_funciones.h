@@ -4,7 +4,7 @@
 *\return El valor ingresado por el usuario.
 *
 */
-int menu();
+int menu( int espaciosLibres );
 
 /**
 *\brief Recibe dos cadenas de texto y dos numeros.
