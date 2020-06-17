@@ -198,20 +198,111 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-return 1;
+    int salida = -1;
+    int opcion;
+
+    if( pArrayListEmployee != NULL ) {
+        do{
+            opcion = menuOrdenar();
+            switch(opcion)
+            {
+                case 1:
+                    ll_sort( pArrayListEmployee , employee_ordenarPorNombre , 1 );
+                    printf("\nORDENAMIENTO FINALIZADO.\n");
+                    salida = 0;
+                    break;
+                case 2:
+                    ll_sort( pArrayListEmployee , employee_ordenarPorHoras , 1 );
+                    printf("\nORDENAMIENTO FINALIZADO.\n");
+                    salida = 0;
+                case 3:
+                    ll_sort( pArrayListEmployee , employee_ordenarPorSueldo , 1 );
+                    printf("\nORDENAMIENTO FINALIZADO.\n");
+                    salida = 0;
+                    break;
+                case 4:
+                    break;
+            }
+        }while(opcion != 4);
+    }
+    return salida;
 }
 
 
 int controller_saveAsText(char* path, LinkedList* pArrayListEmployee)
 {
+    int salida = -1;
+    int lista;
+    int id;
+    int horasTrabajadas;
+    int sueldo;
+    char nombre[128];
+    FILE* pFile;
+    Employee* empleado = NULL;
 
-return 1;
+    if( path != NULL && pArrayListEmployee != NULL ) {
+        lista = ll_len( pArrayListEmployee );
+        if( lista > 0 ) {
+            pFile = fopen( path , "w");
+            if( pFile != NULL ) {
+                fprintf( pFile , "id,nombre,horasTrabajadas,sueldo\n" );
+                for( int i = 0 ; i < lista ; i++ ) {
+                    empleado = (Employee*)ll_get( pArrayListEmployee , i );
+                    if( empleado != NULL ) {
+                        employee_getId( empleado , &id );
+                        employee_getNombre( empleado , nombre );
+                        employee_getHorasTrabajadas( empleado , &horasTrabajadas );
+                        employee_getSueldo( empleado , &sueldo );
+                        fprintf( pFile , "%d,%s,%d,%d\n" , id , nombre , horasTrabajadas , sueldo );
+                        salida = 0;
+                    } else {
+                        break;
+                    }
+                }
+                fclose( pFile );
+            }
+        }
+    }
+    if( salida == 0 ) {
+        printf("\nDATOS GUARDADOS CON EXITO.");
+    } else {
+        printf("\nERROR AL GUARDAR LOS DATOS.");
+    }
+    return salida;
 }
 
 
 int controller_saveAsBinary(char* path, LinkedList* pArrayListEmployee)
 {
-return 1;
+    int salida = -1;
+    int lista;
+    FILE* pFile;
+    Employee* empleado = NULL;
+
+    if( path != NULL && pArrayListEmployee != NULL ) {
+        lista = ll_len( pArrayListEmployee );
+        if( lista > 0 ) {
+            pFile = fopen( path , "wb");
+            if( pFile != NULL ) {
+                for( int i = 0 ; i < lista ; i++ ) {
+                    empleado = (Employee*)ll_get( pArrayListEmployee , i );
+                    if( empleado != NULL ) {
+                        fwrite( empleado , sizeof(Employee) , 1 , pFile );
+                        salida = 0;
+                    } else {
+                        break;
+                    }
+                }
+                fclose( pFile );
+            }
+        }
+    }
+    if( salida == 0 ) {
+        printf("\nDATOS GUARDADOS CON EXITO.");
+    } else {
+        printf("\nERROR AL GUARDAR LOS DATOS.");
+    }
+    return salida;
 }
 
 int controller_asignarID( LinkedList* pArrayListEmployee ) {

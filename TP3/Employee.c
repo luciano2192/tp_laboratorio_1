@@ -35,6 +35,17 @@ int menuModificacion() {
     return opcion;
 }
 
+int menuOrdenar() {
+    int opcion = -1;
+    printf("\n\nOrdenar por:"
+        "\n1. Nombre."
+        "\n2. Horas trabajadas."
+        "\n3. Sueldo."
+        "\n4. Salir.");
+    getDatoGenericoInt(&opcion,"Seleccione una opcion del menu<1-4>: ","ERROR! ingrese nuevamente una opcion valida.",1,4,3);
+    return opcion;
+}
+
 void employee_columnasTabla() {
     printf("\n------------------------LISTADO DE EMPLEADOS-----------------------------");
     printf("\n-------------------------------------------------------------------------");
@@ -236,5 +247,85 @@ int employee_buscarEmpleadoPorID( LinkedList* pArrayListEmployee , int id ) {
         }
     }
     return indice;
+}
+
+int employee_ordenarPorID( void* empleadoUno , void* empleadoDos ) {
+    int salida = -1;
+    int idEmpleadoUno;
+    int idEmpleadoDos;
+    Employee* empleado_uno = NULL;
+    Employee* empleado_dos = NULL;
+    if( empleadoUno != NULL && empleadoDos != NULL ) {
+        empleado_uno = (Employee*)empleadoUno;
+        empleado_dos = (Employee*)empleadoDos;
+        employee_getId( empleado_uno , &idEmpleadoUno );
+        employee_getId( empleado_dos , &idEmpleadoDos );
+        if( idEmpleadoUno > idEmpleadoDos ) {
+            salida = 1;
+        } else {
+            salida = 0;
+        }
+    }
+    return salida;
+}
+
+int employee_ordenarPorHoras( void* empleadoUno , void* empleadoDos ) {
+    int salida = -1;
+    int horasEmpleadoUno;
+    int horasEmpleadoDos;
+    Employee* empleado_uno = NULL;
+    Employee* empleado_dos = NULL;
+    if( empleadoUno != NULL && empleadoDos != NULL ) {
+        empleado_uno = (Employee*)empleadoUno;
+        empleado_dos = (Employee*)empleadoDos;
+        employee_getHorasTrabajadas( empleado_uno , &horasEmpleadoUno );
+        employee_getHorasTrabajadas( empleado_dos , &horasEmpleadoDos );
+        if( horasEmpleadoUno > horasEmpleadoDos ) {
+            salida = 1;
+        } else {
+            salida = 0;
+        }
+    }
+    return salida;
+}
+
+int employee_ordenarPorSueldo( void* empleadoUno , void* empleadoDos ) {
+    int salida = -1;
+    int sueldoEmpleadoUno;
+    int sueldoEmpleadoDos;
+    Employee* empleado_uno = NULL;
+    Employee* empleado_dos = NULL;
+    if( empleadoUno != NULL && empleadoDos != NULL ) {
+        empleado_uno = (Employee*)empleadoUno;
+        empleado_dos = (Employee*)empleadoDos;
+        employee_getSueldo( empleado_uno , &sueldoEmpleadoUno );
+        employee_getSueldo( empleado_dos , &sueldoEmpleadoDos );
+        if( sueldoEmpleadoUno > sueldoEmpleadoDos ) {
+            salida = 1;
+        } else {
+            salida = 0;
+        }
+    }
+    return salida;
+}
+
+int employee_ordenarPorNombre( void* empleadoUno , void* empleadoDos ) {
+    int salida = -1;
+    char nombreEmpleadoUno[128];
+    char nombreEmpleadoDos[128];
+    Employee* empleado_uno = NULL;
+    Employee* empleado_dos = NULL;
+    if( empleadoUno != NULL && empleadoDos != NULL ) {
+        empleado_uno = (Employee*)empleadoUno;
+        empleado_dos = (Employee*)empleadoDos;
+        employee_getNombre( empleado_uno , nombreEmpleadoUno );
+        employee_getNombre( empleado_dos , nombreEmpleadoDos );
+        if( stricmp(nombreEmpleadoUno,nombreEmpleadoDos) > 0 ) {
+            salida = 1;
+        } else {
+            salida = 0;
+        }
+    }
+    return salida;
 }
 

@@ -47,6 +47,17 @@ int main()
             case 6:
                 controller_ListEmployee( listaEmpleados );
                 break;
+            case 7:
+                controller_sortEmployee( listaEmpleados );
+                break;
+            case 8:
+                controller_saveAsText( "data.csv" , listaEmpleados );
+                break;
+            case 9:
+                controller_saveAsBinary( "data.csv" , listaEmpleados );
+                break;
+            case 10:
+                break;
         }
     }while(option != 10);
 

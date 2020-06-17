@@ -10,6 +10,7 @@ typedef struct
 
 int menuLinkedList();
 int menuModificacion();
+int menuOrdenar();
 void employee_columnasTabla();
 void employee_columnasTablaModificacion();
 void employee_columnasTablaEliminar();
@@ -35,5 +36,9 @@ int employee_CompareById(Employee* e1, Employee* e2);
 
 int employee_validarNombre( char* nombre , int len );
 int employee_buscarEmpleadoPorID( LinkedList* pArrayListEmployee , int id );
+int employee_ordenarPorNombre( void* empleadoUno , void* empleadoDos );
+int employee_ordenarPorSueldo( void* empleadoUno , void* empleadoDos );
+int employee_ordenarPorHoras( void* empleadoUno , void* empleadoDos );
+int employee_ordenarPorID( void* empleadoUno , void* empleadoDos );
 
 #endif // employee_H_INCLUDED
