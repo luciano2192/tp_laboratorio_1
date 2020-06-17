@@ -172,3 +172,11 @@ float promedioSalarios( eEmployee listaEmpleados[] , int len );
 *
 */
 float totalSalarios( eEmployee listaEmpleados[] , int len );
+
+int ingresarDatosDeUnEmpleado( eEmployee listaEmpleados[] , int len );
+
+int ingresarDatosDeXEmpleados( eEmployee listaEmpleados[] , int len );
+
+int modificarEmpleado( eEmployee listaEmpleados[] , int len );
+
+int eliminarEmpleado( eEmployee listaEmpleados[] , int len );

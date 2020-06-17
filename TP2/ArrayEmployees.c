@@ -127,12 +127,13 @@ int addEmployee( eEmployee* list , int len , char name[] , char lastName[] , flo
         list[index].isEmpty = 0;
         salida = 0;
     }
-
+    /*
     if( salida == 0 ) {
         printf("\nEmpleado agregado con exito !\n");
     } else {
         printf("\nERROR ! No se agrego el empleado !\n");
     }
+    */
     return salida;
 }
 
@@ -269,18 +270,127 @@ void empleadosQueSuperanSalarioPromedio( eEmployee listaEmpleados[] , int len ) 
     }
 }
 
-void menuAdministracionEmpleados( eEmployee listaEmpleados[] , int len ) {
-    int menuEmpleados;
+int ingresarDatosDeUnEmpleado( eEmployee listaEmpleados[] , int len ) {
+    int salida = -1;
+    char auxName[30];
+    char auxLastName[30];
+    float auxSalary;
+    int auxSector;
+    if( listaEmpleados != NULL && len > 0 ) {
+        if( cantidadLugaresDisponibles(listaEmpleados,len) > 0 ) {
+            getDatoGenericoString( auxName , "Ingrese nombre: " , "ERROR ! ingrese nuevamente su nombre" , 30 );
+            getDatoGenericoString( auxLastName , "Ingrese apellido: " , "ERROR ! ingrese nuevamente su apellido" , 30 );
+            formatearString( auxName );
+            formatearString( auxLastName );
+            getDatoGenericoFloat( &auxSalary , "Ingrese salario: " , "ERROR ! ingrese nuevamente el salario" , 0.0 , 20000.0 , 3 );
+            getDatoGenericoInt( &auxSector , "Ingrese sector: " , "ERROR ! ingrese nuevamente el sector" , 0 , 3 , 3 );
+            addEmployee( listaEmpleados , len , auxName , auxLastName , auxSalary , auxSector );
+            salida = 0;
+        } else {
+            printf("\nERROR ! No hay lugar disponible.\n");
+        }
+    }
+    return salida;
+}
+
+int ingresarDatosDeXEmpleados( eEmployee listaEmpleados[] , int len ) {
+    int salida = -1;
+    char respuesta;
+    if( listaEmpleados != NULL && len > 0 ) {
+        do{
+            if( ingresarDatosDeUnEmpleado(listaEmpleados,len) == 0 ) {
+                printf("\nEmpleado ingresado con exito.\n");
+            }
+            if( cantidadLugaresDisponibles(listaEmpleados,len) > 0 ){
+                respuesta = getDatoGenericoChar("Desea ingresar otro empleado? <s-n>: ","ERROR ! ingrese el caracter correspondiente",'s','n');
+                if( respuesta == 'N' || cantidadLugaresDisponibles(listaEmpleados,len) == 0 ) {
+                    salida = 0;
+                }
+            } else {
+                salida = 0;
+            }
+        } while( salida != 0 );
+    }
+    return salida;
+}
+
+int modificarEmpleado( eEmployee listaEmpleados[] , int len ) {
+    int salida = -1;
     int menuMod;
-    int menuInf;
-    int empleadoCargado;
     int indexEmpleado;
     int auxID;
     char auxName[30];
     char auxLastName[30];
     float auxSalary;
     int auxSector;
+    printEmployees( listaEmpleados , len );
+    getDatoGenericoInt( &auxID , "\nIngrese ID del empleado: " , "ERROR ! ingrese nuevamente el ID" , 0 , len , 3 );
+    printf( "\nQue desea modificar ?\n" );
+    menuMod = menuModificar();
+    indexEmpleado = findEmployeeById( listaEmpleados , len , auxID );
+    switch(menuMod) {
+        case 1:
+            getDatoGenericoString( auxName , "Ingrese nombre: " , "ERROR ! ingrese nuevamente su nombre" , 30 );
+            formatearString(auxName);
+            strcpy( listaEmpleados[indexEmpleado].name , auxName );
+            printf( "\nNombre modificado con exito.\n" );
+            printOneEmployee( listaEmpleados[indexEmpleado] );
+            salida = 0;
+            break;
+        case 2:
+            getDatoGenericoString( auxLastName , "Ingrese apellido: " , "ERROR ! ingrese nuevamente su apellido" , 30 );
+            formatearString(auxLastName);
+            strcpy( listaEmpleados[indexEmpleado].lastName , auxLastName );
+            printf( "\nApellido modificado con exito.\n" );
+            printOneEmployee( listaEmpleados[indexEmpleado] );
+            salida = 0;
+            break;
+        case 3:
+            getDatoGenericoFloat( &auxSalary , "Ingrese salario: " , "ERROR ! ingrese nuevamente el salario" , 0.0 , 20000.0 , 3 );
+            listaEmpleados[indexEmpleado].salary = auxSalary;
+            printf( "\nSalario modificado con exito.\n" );
+            printOneEmployee( listaEmpleados[indexEmpleado] );
+            salida = 0;
+            break;
+        case 4:
+            getDatoGenericoInt( &auxSector , "Ingrese sector: " , "ERROR ! ingrese nuevamente el sector" , 0 , 3 , 3 );
+            listaEmpleados[indexEmpleado].sector = auxSector;
+            printf( "\nSector modificado con exito.\n" );
+            printOneEmployee( listaEmpleados[indexEmpleado] );
+            salida = 0;
+            break;
+        case 5:
+            salida = 0;
+            break;
+    }
+    return salida;
+}
+
+int eliminarEmpleado( eEmployee listaEmpleados[] , int len ) {
+    int salida = -1;
+    int auxID;
+    int indexEmpleado;
     int empleadoEliminado;
+    printEmployees( listaEmpleados , len );
+    getDatoGenericoInt( &auxID , "\nIngrese ID del empleado: " , "ERROR ! ingrese nuevamente el ID" , 0 , len , 3 );
+    indexEmpleado = findEmployeeById( listaEmpleados , len , auxID );
+    printOneEmployee( listaEmpleados[indexEmpleado] );
+    empleadoEliminado = removeEmployee( listaEmpleados , len , auxID );
+    if( empleadoEliminado == 0 ) {
+        salida = 0;
+        printf( "\nEmpleado elimanado con exito.\n" );
+    } else {
+        printf( "\nERROR ! no se elimino el empleado.\n" );
+    }
+
+    return salida;
+}
+
+
+void menuAdministracionEmpleados( eEmployee listaEmpleados[] , int len ) {
+    int menuEmpleados;
+    int menuInf;
+    int empleadoCargado;
     float totalSalary;
     float promedioSalary;
     do{
@@ -288,64 +398,15 @@ void menuAdministracionEmpleados( eEmployee listaEmpleados[] , int len ) {
         empleadoCargado = seCargoEmpleado( listaEmpleados , len );
         switch( menuEmpleados ) {
             case 1:
-                getDatoGenericoString( auxName , "Ingrese nombre: " , "ERROR ! ingrese nuevamente su nombre" , 30 );
-                getDatoGenericoString( auxLastName , "Ingrese apellido: " , "ERROR ! ingrese nuevamente su apellido" , 30 );
-                formatearString( auxName );
-                formatearString( auxLastName );
-                getDatoGenericoFloat( &auxSalary , "Ingrese salario: " , "ERROR ! ingrese nuevamente el salario" , 0.0 , 20000.0 , 3 );
-                getDatoGenericoInt( &auxSector , "Ingrese sector: " , "ERROR ! ingrese nuevamente el sector" , 0 , 3 , 3 );
-                addEmployee( listaEmpleados , len , auxName , auxLastName , auxSalary , auxSector );
+                ingresarDatosDeXEmpleados( listaEmpleados , len );
                 printEmployees( listaEmpleados , len );
                 break;
             if( empleadoCargado == 0 ) {
                 case 2:
-                    printEmployees( listaEmpleados , len );
-                    getDatoGenericoInt( &auxID , "\nIngrese ID del empleado: " , "ERROR ! ingrese nuevamente el ID" , 0 , len , 3 );
-                    printf( "\nQue desea modificar ?\n" );
-                    menuMod = menuModificar();
-                    indexEmpleado = findEmployeeById( listaEmpleados , len , auxID );
-                    switch(menuMod) {
-                        case 1:
-                            getDatoGenericoString( auxName , "Ingrese nombre: " , "ERROR ! ingrese nuevamente su nombre" , 30 );
-                            formatearString(auxName);
-                            strcpy( listaEmpleados[indexEmpleado].name , auxName );
-                            printf( "\nNombre modificado con exito.\n" );
-                            printOneEmployee( listaEmpleados[indexEmpleado] );
-                            break;
-                        case 2:
-                            getDatoGenericoString( auxLastName , "Ingrese apellido: " , "ERROR ! ingrese nuevamente su apellido" , 30 );
-                            formatearString(auxLastName);
-                            strcpy( listaEmpleados[indexEmpleado].lastName , auxLastName );
-                            printf( "\nApellido modificado con exito.\n" );
-                            printOneEmployee( listaEmpleados[indexEmpleado] );
-                            break;
-                        case 3:
-                            getDatoGenericoFloat( &auxSalary , "Ingrese salario: " , "ERROR ! ingrese nuevamente el salario" , 0.0 , 20000.0 , 3 );
-                            listaEmpleados[indexEmpleado].salary = auxSalary;
-                            printf( "\nSalario modificado con exito.\n" );
-                            printOneEmployee( listaEmpleados[indexEmpleado] );
-                            break;
-                        case 4:
-                            getDatoGenericoInt( &auxSector , "Ingrese sector: " , "ERROR ! ingrese nuevamente el sector" , 0 , 3 , 3 );
-                            listaEmpleados[indexEmpleado].sector = auxSector;
-                            printf( "\nSector modificado con exito.\n" );
-                            printOneEmployee( listaEmpleados[indexEmpleado] );
-                            break;
-                        case 5:
-                            break;
-                    }
+                    modificarEmpleado( listaEmpleados , len );
                     break;
                 case 3:
-                    printEmployees( listaEmpleados , len );
-                    getDatoGenericoInt( &auxID , "\nIngrese ID del empleado: " , "ERROR ! ingrese nuevamente el ID" , 0 , len , 3 );
-                    indexEmpleado = findEmployeeById( listaEmpleados , len , auxID );
-                    printOneEmployee( listaEmpleados[indexEmpleado] );
-                    empleadoEliminado = removeEmployee( listaEmpleados , len , auxID );
-                    if( empleadoEliminado == 0 ) {
-                        printf( "\nEmpleado elimanado con exito.\n" );
-                    } else {
-                        printf( "\nERROR ! no se elimino el empleado.\n" );
-                    }
+                    eliminarEmpleado( listaEmpleados , len );
                     break;
                 case 4:
                     menuInf = menuInformar();

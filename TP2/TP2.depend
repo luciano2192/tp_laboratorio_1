@@ -5,18 +5,18 @@
 	"./ArrayEmployees.h"
 	"./utn_funciones.h"
 
-1589138758 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.h
+1589220504 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.h
 
-1589065286 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.c
+1589214918 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\arrayemployees.c
 	<stdio.h>
 	<stddef.h>
 	<string.h>
 	"./ArrayEmployees.h"
 	"./utn_funciones.h"
 
-1589140344 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.h
+1589210701 c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.h
 
-1589140304 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.c
+1589213941 source:c:\users\lucho\documents\utn\tp_laboratorio_1\tp2\utn_funciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
