@@ -22,7 +22,6 @@ LinkedList* ll_newLinkedList(void)
         this->size = 0;
         this->pFirstNode = NULL;
     }
-
     return this;
 }
 
@@ -39,8 +38,6 @@ int ll_len(LinkedList* this)
     {
         returnAux = this->size;
     }
-
-
     return returnAux;
 }
 
@@ -50,15 +47,20 @@ int ll_len(LinkedList* this)
  * \param this LinkedList* Puntero a la lista
  * \param index int Indice del nodo a obtener
  * \return Node* Retorna  (NULL) Error: si el puntero a la lista es NULL o (si el indice es menor a 0 o mayor al len de la lista)
-                        (pElement) Si funciono correctamente
+ *                       (pElement) Si funciono correctamente
  *
  */
 static Node* getNode(LinkedList* this, int nodeIndex)
 {
     Node* pNode = NULL;
-
-
-
+    int indice = 0;
+    if( this != NULL && nodeIndex >= 0 && nodeIndex < ll_len(this) ) {
+        pNode = this->pFirstNode;
+        while( pNode->pNextNode != NULL && indice < nodeIndex ) {
+            pNode = pNode->pNextNode;
+            indice++;
+        }
+    }
     return pNode;
 }
 
