@@ -144,15 +144,8 @@ int ll_add(LinkedList* this, void* pElement)
     Node* actual;
 
     if( this != NULL ) {
-        actual = (Node*)malloc(sizeof(Node));
-            if( actual != NULL ) {
-                actual->pElement = pElement;
-                while( indice <= ll_len(this) ) {
-                    indice++;
-                }
-                addNode( this , indice++ , actual );
-                returnAux = 0;
-            }
+        addNode( this , ll_len(this) , pElement );
+        returnAux = 0;
     }
 
     return returnAux;
