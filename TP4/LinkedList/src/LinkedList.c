@@ -323,9 +323,9 @@ int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
 
-    if(this != NULL)
+    if( this != NULL )
     {
-        if( ll_len(this))
+        if( ll_len(this) )
         {
             returnAux = 0;
         }
@@ -349,8 +349,12 @@ int ll_isEmpty(LinkedList* this)
 int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
-
-
+    Node* nodo;
+    if( this != NULL && index >= 0 && index <= ll_len(this) ) {
+        if( addNode(this,index,pElement) == 0 ) {
+            returnAux = 0;
+        }
+    }
 
     return returnAux;
 }
