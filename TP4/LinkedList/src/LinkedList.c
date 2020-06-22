@@ -373,7 +373,14 @@ void* ll_pop(LinkedList* this,int index)
     void* returnAux = NULL;
     Node* nodo;
 
-
+    if( this != NULL && index >= 0 && index <= ll_len(this) ) {
+        nodo = ll_get( this , index );
+        if( nodo != NULL ) {
+            if( ll_remove(this,index) == 0 ) {
+                returnAux = nodo;
+            }
+        }
+    }
 
     return returnAux;
 }
