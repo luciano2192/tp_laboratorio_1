@@ -245,8 +245,18 @@ int ll_clear(LinkedList* this)
 {
     int returnAux = -1;
     Node* nodo;
-    int i;
+    int i = 0;
 
+    if( this != NULL ) {
+        while( i < ll_len(this) ) {
+            nodo = getNode( this , i );
+            if( nodo != NULL ) {
+                free( nodo );
+            }
+            i++;
+            returnAux = 0;
+        }
+    }
 
     return returnAux;
 }
