@@ -294,10 +294,19 @@ int ll_deleteLinkedList(LinkedList* this)
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
-    int i;
+    int i = 0;
     Node* nodo;
 
-
+    if( this != NULL ) {
+        while( i < ll_len(this) ) {
+            nodo = getNode( this , i );
+            if( nodo != NULL && nodo->pElement == pElement ) {
+                returnAux = i;
+                break;
+            }
+            i++;
+        }
+    }
 
     return returnAux;
 }
