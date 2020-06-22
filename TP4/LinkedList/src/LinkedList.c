@@ -323,14 +323,10 @@ int ll_isEmpty(LinkedList* this)
 {
     int returnAux = -1;
 
-    if( this != NULL )
-    {
-        if( ll_len(this) )
-        {
+    if( this != NULL ) {
+        if( ll_len(this) ) {
             returnAux = 0;
-        }
-        else
-        {
+        } else {
             returnAux = 1;
         }
     }
