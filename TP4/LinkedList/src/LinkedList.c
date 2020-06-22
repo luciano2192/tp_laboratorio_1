@@ -398,6 +398,13 @@ int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
 
+    if( this != NULL ) {
+        if( ll_indexOf(this,pElement) != returnAux ) {
+            returnAux = 1;
+        } else {
+            returnAux = 0;
+        }
+    }
 
     return returnAux;
 }
@@ -414,9 +421,21 @@ int ll_contains(LinkedList* this, void* pElement)
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
     int returnAux = -1;
-    int i;
+    int i = 0;
     Node* nodo;
 
+    if( this != NULL && this2 != NULL ) {
+        while( i <= ll_len(this2) ) {
+            nodo = ll_get( this2 , i );
+            if( nodo != NULL && ll_contains(this,nodo) != 1 ) {
+                returnAux = 0;
+                break;
+            } else {
+                returnAux = 1;
+            }
+            i++;
+        }
+    }
 
     return returnAux;
 }
